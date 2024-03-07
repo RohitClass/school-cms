@@ -15,7 +15,7 @@
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Manage Users</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         @foreach($user_types as $ut)
-                            <a href="#ut-{{ Qs::hash($ut->id) }}" class="dropdown-item" data-toggle="tab">{{ $ut->name }}s</a>
+                            <a href="#ut-{{($ut->id) }}" class="dropdown-item" data-toggle="tab">{{ $ut->name }}s</a>
                         @endforeach
                     </div>
                 </li>
@@ -177,7 +177,7 @@
                 </div>
 
                 @foreach($user_types as $ut)
-                    <div class="tab-pane fade" id="ut-{{Qs::hash($ut->id)}}">                         <table class="table datatable-button-html5-columns">
+                    <div class="tab-pane fade" id="ut-{{($ut->id)}}">                         <table class="table datatable-button-html5-columns">
                             <thead>
                             <tr>
                                 <th>S/N</th>

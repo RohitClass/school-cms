@@ -57,8 +57,8 @@
                        </div>
 
                        <div class="media-body text-right">
-                           <h3 class="mb-0">{{ $users->where('user_type', 'parent')->count() }}</h3>
-                           <span class="text-uppercase font-size-xs">Total Parents</span>
+                           <h3 class="mb-0">{{ $users->where('user_type', 'librarian')->count() }}</h3>
+                           <span class="text-uppercase font-size-xs">Total librarian</span>
                        </div>
                    </div>
                </div>

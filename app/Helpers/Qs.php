@@ -55,7 +55,7 @@ class Qs
 
     public static function getTeamSA()
     {
-        return ['admin', 'super_admin'];
+        return ['admin', 'super_admin', 'my_parent'];
     }
 
     public static function getTeamAccount()

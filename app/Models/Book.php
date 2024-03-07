@@ -10,5 +10,8 @@ class Book extends Model
 {
     use HasFactory, Notifiable;
 
-
+    public function getcalss()
+    {
+        return $this->belongsTo(MyClass::class,'my_class_id');
+    }
 }

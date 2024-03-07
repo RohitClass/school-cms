@@ -32,6 +32,7 @@
                             <th>Section</th>
                             <th>Email</th>
                             <th>Attendance</th>
+                            <th>Total attendance percentage</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -44,7 +45,37 @@
                                 <td>{{ $s->adm_no }}</td>
                                 <td>{{ $my_class->name.' '.$s->section->name }}</td>
                                 <td>{{ $s->user->email }}</td>
-                                <td><a href="{{route('pages.support_team.students.list',$s->id)}}">Attend</a></td>
+                                @php
+
+                                    $todayEntries = DB::table('attendances')
+                ->whereRaw('DATE(created_at) = CURDATE()') // Compare date part only
+                ->where('studance_id', $s->id)
+                ->exists();
+                $todayEntries2 = DB::table('attendances')
+                ->whereRaw('DATE(created_at) = CURDATE()') // Compare date part only
+                ->where('studance_id', $s->id)
+                ->first();
+                $distinctDatesCounts = DB::table('attendances')
+    ->select(DB::raw('DATE(created_at) as attendance_date'), DB::raw('COUNT(*) as count'))
+    ->groupBy('attendance_date')
+    ->get();
+    $distinctDatesCounts2 = DB::table('attendances')
+    ->select(DB::raw('DATE(created_at) as attendance_date'), DB::raw('COUNT(*) as count'))->WHERE('studance_id', $s->id)
+    ->groupBy('attendance_date')
+    ->get();
+    $percent=($distinctDatesCounts2->count()/$distinctDatesCounts->count())*100;
+
+@endphp
+
+                                <td>
+                                    @if (!$todayEntries)
+                                        <a class="btn btn-success" href="{{ route('pages.support_team.students.list', $s->id) }}">Present</a>
+                                        @else
+                                        <a class="btn btn-danger" href="{{ route('pages.support_team.students.list2', $todayEntries2->id) }}">absent</a>
+
+                                    @endif
+                                </td>
+                                <td>{{$percent}}%</td>
                                 <td class="text-center">
                                     <div class="list-icons">
                                         <div class="dropdown">
@@ -54,6 +85,7 @@
 
                                             <div class="dropdown-menu dropdown-menu-left">
                                                 <a href="{{ route('students.show', Qs::hash($s->id)) }}" class="dropdown-item"><i class="icon-eye"></i> View Profile</a>
+                                                <a href="{{ route('students.show', Qs::hash($s->id)) }}" class="dropdown-item"><i class="icon-eye"></i> View Attendance</a>
                                                 @if(Qs::userIsTeamSA())
                                                     <a href="{{ route('students.edit', Qs::hash($s->id)) }}" class="dropdown-item"><i class="icon-pencil"></i> Edit</a>
                                                     <a href="{{ route('st.reset_pass', Qs::hash($s->user->id)) }}" class="dropdown-item"><i class="icon-lock"></i> Reset password</a>
@@ -84,18 +116,49 @@
                                 <th>Name</th>
                                 <th>ADM_No</th>
                                 <th>Email</th>
-
+                                <th>Attendance</th>
+                                <th>Total attendance percentage</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($students->where('section_id', $se->id) as $sr)
+                            @php
+
+                            $todayEntries = DB::table('attendances')
+        ->whereRaw('DATE(created_at) = CURDATE()') // Compare date part only
+        ->where('studance_id', $sr->id)
+        ->exists();
+        $todayEntries2 = DB::table('attendances')
+        ->whereRaw('DATE(created_at) = CURDATE()') // Compare date part only
+        ->where('studance_id', $sr->id)
+        ->first();
+        $distinctDatesCounts = DB::table('attendances')
+->select(DB::raw('DATE(created_at) as attendance_date'), DB::raw('COUNT(*) as count'))
+->groupBy('attendance_date')
+->get();
+$distinctDatesCounts2 = DB::table('attendances')
+->select(DB::raw('DATE(created_at) as attendance_date'), DB::raw('COUNT(*) as count'))->WHERE('studance_id', $sr->id)
+->groupBy('attendance_date')
+->get();
+$percent2=($distinctDatesCounts2->count()/$distinctDatesCounts->count())*100;
+
+@endphp
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td><img class="rounded-circle" style="height: 40px; width: 40px;" src="{{ $sr->user->photo }}" alt="photo"></td>
                                     <td>{{ $sr->user->name }}</td>
                                     <td>{{ $sr->adm_no }}</td>
                                     <td>{{ $sr->user->email }}</td>
+                                    <td>
+                                        @if (!$todayEntries)
+                                            <a class="btn btn-success" href="{{ route('pages.support_team.students.list', $s->id) }}">Present</a>
+                                            @else
+                                            <a class="btn btn-danger" href="{{ route('pages.support_team.students.list2', $todayEntries2->id) }}">absent</a>
+
+                                        @endif
+                                    </td>
+                                    <td>{{$percent2}}%</td>
                                     <td class="text-center">
                                         <div class="list-icons">
                                             <div class="dropdown">

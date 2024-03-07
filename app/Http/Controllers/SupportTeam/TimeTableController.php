@@ -12,6 +12,8 @@ use App\Repositories\MyClassRepo;
 use App\Repositories\TimeTableRepo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use DB;
 
 class TimeTableController extends Controller
 {
@@ -254,8 +256,16 @@ class TimeTableController extends Controller
         return back()->with('flash_success', __('msg.delete_ok'));
     }
     //attend
-    public function attend($id){
-      
+
+    public function attend($idd){
+        // dd(session('login_web_59ba36addc2b2f9401580f014c7f58ea4e30989d'));
+
+        $current_time = now();
+        DB::table('attendances')->insert(['studance_id'=>$idd,'updated_at'=>$current_time->toDateString().' '.$current_time->toTimeString()]);
+        return redirect()->back();
+    }
+    public function attend2($iddd){
+               DB::table('attendances')->where('id',$iddd)->delete();
         return redirect()->back();
     }
 }

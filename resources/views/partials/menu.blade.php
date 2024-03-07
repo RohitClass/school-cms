@@ -114,17 +114,17 @@
                                 </ul>
                             </li>
                             @if(Qs::userIsAcademic())
-                            <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['tt.index', 'ttr.edit', 'ttr.show', 'ttr.manage']) ? 'nav-item-expanded nav-item-open' : '' }} ">
+                            {{-- <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['tt.index', 'ttr.edit', 'ttr.show', 'ttr.manage']) ? 'nav-item-expanded nav-item-open' : '' }} ">
                                 <a href="#" class="nav-link"><i class="icon-graduation2"></i> <span> Student</span></a>
 
-                                <ul class="nav nav-group-sub" data-submenu-title="Manage Academics">
+                                <ul class="nav nav-group-sub" data-submenu-title="Manage Academics"> --}}
 
                                 {{--Timetables--}}
-                                <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.list', 'students.edit', 'students.show']) ? 'nav-item-expanded' : '' }}">
+                                {{-- <li class="nav-item nav-item-submenu {{ in_array(Route::currentRouteName(), ['students.list', 'students.edit', 'students.show']) ? 'nav-item-expanded' : '' }}">
                                     <a href="{{ route('teacher.total_student') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['students.list', 'students.edit', 'students.show']) ? 'active' : '' }}">Total Student</a>
                                 </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             @endif
 
                             @if(Qs::userIsTeamSA())
@@ -157,20 +157,20 @@
                         <a href="{{ route('classes.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['classes.index','classes.edit']) ? 'active' : '' }}"><i class="icon-windows2"></i> <span> Classes</span></a>
                     </li>
 
-                    {{--Manage Dorms--}}
-                    {{-- <li class="nav-item">
+                    {{-- Manage Dorms --}}
+                    <li class="nav-item">
                         <a href="{{ route('dorms.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['dorms.index','dorms.edit']) ? 'active' : '' }}"><i class="icon-home9"></i> <span> Dormitories</span></a>
-                    </li> --}}
+                    </li>
 
                     {{--Manage Sections--}}
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('sections.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['sections.index','sections.edit',]) ? 'active' : '' }}"><i class="icon-fence"></i> <span>Sections</span></a>
-                    </li> --}}
+                    </li>
 
                     {{--Manage Subjects--}}
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a href="{{ route('subjects.index') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['subjects.index','subjects.edit',]) ? 'active' : '' }}"><i class="icon-pin"></i> <span>Subjects</span></a>
-                    </li> --}}
+                    </li>
                 @endif
 
                 {{--Exam--}}
@@ -194,9 +194,9 @@
                             </li>
 
                             {{--Tabulation Sheet--}}
-                            {{-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a href="{{ route('marks.tabulation') }}" class="nav-link {{ in_array(Route::currentRouteName(), ['marks.tabulation']) ? 'active' : '' }}">Tabulation Sheet</a>
-                            </li> --}}
+                            </li>
 
                             {{--Marks Batch Fix--}}
                             <li class="nav-item">

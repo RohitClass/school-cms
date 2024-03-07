@@ -128,7 +128,8 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::post('selector', 'MarkController@selector')->name('marks.selector');
                 Route::get('bulk/{class?}/{section?}', 'MarkController@bulk')->name('marks.bulk');
                 Route::post('bulk', 'MarkController@bulk_select')->name('marks.bulk_select');
-                Route::get('/attend/{id}','TimeTableController@attend')->name('pages.support_team.students.list');
+                Route::get('attend/{idd}','TimeTableController@attend')->name('pages.support_team.students.list');
+                Route::get('attend2/{iddd}','TimeTableController@attend2')->name('pages.support_team.students.list2');
 
             });
 
@@ -137,6 +138,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('show/{id}/{year}', 'MarkController@show')->name('marks.show');
             Route::get('print/{id}/{exam_id}/{year}', 'MarkController@print_view')->name('marks.print');
 
+            Route::get('attendence', 'StudentRecordController@attendence')->name('attendence.show');
+            Route::get('fee', 'StudentRecordController@fee')->name('fee.show');
+            Route::get('book', 'StudentRecordController@book')->name('book.show');
         });
 
         Route::resource('students', 'StudentRecordController');
@@ -169,14 +173,16 @@ Route::group(['namespace' => 'SuperAdmin','middleware' => 'super_admin', 'prefix
 });
 
 /************************ PARENT ****************************/
-Route::group(['namespace' => 'MyParent','middleware' => 'my_parent',], function(){
+Route::group(['namespace' => 'MyParent','middleware' => 'librarian',], function(){
 
-    // Route::get('/my_children', 'MyController@children')->name('my_children');
-
+    Route::get('/my_children', 'MyController@children')->name('my_children');
     Route::get('/books', 'MyController@children')->name('books');
-
+    Route::get('/records', 'MyController@records')->name('records');
+    Route::post('/books/store', 'MyController@store')->name('books.store');
+    Route::post('/books_record/store', 'MyController@books_record')->name('books_record.store');
+    Route::get('/books/delete/{idd}', 'MyController@delete')->name('books.delete');
+    Route::get('/books/edit/{idd}', 'MyController@edit')->name('books.edit');
     Route::post('/books/update', 'MyController@update')->name('books.update');
-    Route::get('/records', 'MyController@children')->name('records');
+    Route::get('/books/status/{idd}', 'MyController@status')->name('books.status');
 
 });
-Route::post('/books/store', 'MyController@store')->name('books.store');

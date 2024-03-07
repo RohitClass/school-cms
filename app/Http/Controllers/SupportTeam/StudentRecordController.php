@@ -11,6 +11,12 @@ use App\Repositories\MyClassRepo;
 use App\Repositories\StudentRepo;
 use App\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
+use App\Models\Attendance;
+use App\Models\Book;
+use App\Models\BookRequest;
+use App\Models\PaymentRecord;
+use App\Models\StudentRecord;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -61,7 +67,7 @@ class StudentRecordController extends Controller
         $data['user_type'] = 'student';
         $data['name'] = ucwords($req->name);
         $data['code'] = strtoupper(Str::random(10));
-        $data['password'] = Hash::make('student');
+        $data['password'] = Hash::make($req->password);
         $data['photo'] = Qs::getDefaultUserImage();
         $adm_no = $req->adm_no;
         $data['username'] = strtoupper(Qs::getAppCode().'/'.$ct.'/'.$sr['year_admitted'].'/'.($adm_no ?: mt_rand(1000, 99999)));
@@ -180,6 +186,22 @@ class StudentRecordController extends Controller
         $this->user->delete($sr->user->id);
 
         return back()->with('flash_success', __('msg.del_ok'));
+    }
+
+    public function attendence(){
+        $user = StudentRecord::where('user_id',Auth::User()->id)->first();
+        $attends = Attendance::where('studance_id',$user->id)->get();
+        return view('pages.student.attendence',compact('attends'));
+    }
+
+    public function fee(){
+        $payments = PaymentRecord::where('student_id',Auth::User()->id)->with('payment')->get();
+        return view('pages.student.fee',compact('payments'));
+    }
+
+    public function book(){
+        $recs = BookRequest::where('user_id',Auth::User()->id)->with('book','student')->get();
+        return view('pages.student.book', compact('recs'));
     }
 
 }

@@ -38,6 +38,13 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
+                                <label>Password:</label>
+                                <input value="{{ old('password') }}" type="password" name="password" class="form-control" placeholder="" >
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label for="gender">Gender: <span class="text-danger">*</span></label>
                                 <select class="select form-control" id="gender" name="gender" required data-fouc data-placeholder="Choose..">
                                     <option value=""></option>
@@ -54,12 +61,6 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Telephone:</label>
-                                <input value="{{ old('phone2') }}" type="text" name="phone2" class="form-control" placeholder="" >
-                            </div>
-                        </div>
 
                     </div>
 
