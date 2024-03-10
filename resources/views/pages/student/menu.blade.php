@@ -12,3 +12,6 @@
 <li class="nav-item">
     <a href="{{ route('book.show', Qs::hash(Auth::user()->id)) }}" class="nav-link {{ in_array(Route::currentRouteName(), ['book.show']) ? 'active' : '' }}"><i class="icon-books"></i>Books</a>
 </li>
+<li class="nav-item">
+    <a href="{{ route('std.notice', Qs::hash(Auth::user()->id)) }}" class="nav-link {{ in_array(Route::currentRouteName(), ['std.notice']) ? 'active' : '' }}"><i class="icon-books"></i>Notice</a>
+</li>

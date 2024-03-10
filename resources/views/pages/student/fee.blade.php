@@ -17,6 +17,7 @@
                                 <th>S/N</th>
                                 <th>Title</th>
                                 <th>Pay_Ref</th>
+                                <th>Pay_Type</th>
                                 <th>Amount</th>
                                 <th>Paid</th>
                                 <th>Balance</th>
@@ -30,6 +31,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $pay->payment->title }}</td>
                                     <td>{{ $pay->payment->ref_no }}</td>
+                                    <td>{{ $pay->payment->payment_type }}</td>
 
                                     {{--Amount--}}
                                     <td class="font-weight-bold" id="amt-{{ Qs::hash($pay->id) }}" data-amount="{{ $pay->payment->amount }}">{{ $pay->payment->amount }}</td>

@@ -17,33 +17,36 @@
 </table>
 
 
-{{--Exam Table--}}
+<!--Exam Table-->
 <table style="width:100%; border-collapse:collapse; border: 1px solid #000; margin: 10px auto;" border="1">
     <thead>
     <tr>
         <th rowspan="2">SUBJECTS</th>
-        <th colspan="3">CONTINUOUS ASSESSMENT</th>
-        <th rowspan="2">EXAM<br>(60)</th>
-        <th rowspan="2">FINAL MARKS <br> (100%)</th>
+        <th colspan="6">CONTINUOUS ASSESSMENT</th>
+        <th rowspan="2">TOTAL MARKS <br> (100)</th>
         <th rowspan="2">GRADE</th>
         <th rowspan="2">SUBJECT <br> POSITION</th>
 
 
-      {{--  @if($ex->term == 3) --}}{{-- 3rd Term --}}{{--
+       {{-- @if($ex->term == 3)3rd Term
         <th rowspan="2">FINAL MARKS <br>(100%) 3<sup>RD</sup> TERM</th>
         <th rowspan="2">1<sup>ST</sup> <br> TERM</th>
         <th rowspan="2">2<sup>ND</sup> <br> TERM</th>
         <th rowspan="2">CUM (300%) <br> 1<sup>ST</sup> + 2<sup>ND</sup> + 3<sup>RD</sup></th>
         <th rowspan="2">CUM AVE</th>
         <th rowspan="2">GRADE</th>
-        @endif--}}
+        @endif --}}
 
         <th rowspan="2">REMARKS</th>
     </tr>
     <tr>
-        <th>CA1(20)</th>
-        <th>CA2(20)</th>
-        <th>TOTAL(40)</th>
+        <th>PT1 (20)</th>
+        <th>Sub Enrichment (5)</th>
+        <th>Multipal Assessment (5)</th>
+        <th>Portfolio (5)</th>
+        <th>Project (5)</th>
+        <th>Haly Yearly (60)</th>
+        <!-- <th>TOTAL(40)</th> -->
     </tr>
     </thead>
     <tbody>
@@ -53,8 +56,11 @@
             @foreach($marks->where('subject_id', $sub->id)->where('exam_id', $ex->id) as $mk)
                 <td>{{ $mk->t1 ?: '-' }}</td>
                 <td>{{ $mk->t2 ?: '-' }}</td>
+                <td>{{ $mk->t3 ?: '-' }}</td>
+                <td>{{ $mk->t4 ?: '-' }}</td>
+                <td>{{ $mk->t5 ?: '-' }}</td>
                 <td>{{ $mk->tca ?: '-' }}</td>
-                <td>{{ $mk->exm ?: '-' }}</td>
+                {{-- <td>{{ $mk->exm ?: '-' }}</td> --}}
 
                 <td>{{ $mk->$tex ?: '-'}}</td>
                 <td>{{ $mk->grade ? $mk->grade->name : '-' }}</td>

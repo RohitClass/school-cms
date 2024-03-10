@@ -28,6 +28,13 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="method" class="col-lg-3 col-form-label font-weight-semibold">Payment Type</label>
+                            <div class="col-lg-9">
+                                <input title="method" value="{{ ucwords($payment->payment_type) }}" disabled class="form-control" type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="method" class="col-lg-3 col-form-label font-weight-semibold">Payment Method</label>
                             <div class="col-lg-9">
                                 <input title="method" value="{{ ucwords($payment->method) }}" disabled class="form-control" type="text">
@@ -35,7 +42,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="amount" class="col-lg-3 col-form-label font-weight-semibold">Amount (<del style="text-decoration-style: double">N</del>) </label>
+                            <label for="amount" class="col-lg-3 col-form-label font-weight-semibold">Amount &#8377; </label>
                             <div class="col-lg-9">
                                 <input disabled class="form-control" value="{{ $payment->amount }}" id="amount" type="text">
                             </div>

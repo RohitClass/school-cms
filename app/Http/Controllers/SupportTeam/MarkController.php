@@ -201,7 +201,10 @@ class MarkController extends Controller
 
                 $d['t1'] = $t1 = $mks['t1_'.$mk->id];
                 $d['t2'] = $t2 = $mks['t2_'.$mk->id];
-                $d['tca'] = $tca = $t1 + $t2;
+                $d['t3'] = $t3 = $mks['t3_'.$mk->id];
+                $d['t4'] = $t4 = $mks['t4_'.$mk->id];
+                $d['t5'] = $t5 = $mks['t5_'.$mk->id];
+                $d['tca'] = $tca = $t1 + $t2 + $t3 + $t4 + $t5;
                 $d['exm'] = $exm = $mks['exm_'.$mk->id];
 
 
@@ -210,7 +213,7 @@ class MarkController extends Controller
             $d['tex'.$exam->term] = $total = $tca + $exm;
 
             if($total > 100){
-                $d['tex'.$exam->term] = $d['t1'] = $d['t2'] = $d['t3'] = $d['t4'] = $d['tca'] = $d['exm'] = NULL;
+                $d['tex'.$exam->term] = $d['t1'] = $d['t2'] = $d['t3'] = $d['t4'] = $d['t5'] = $d['tca'] = $d['exm'] = NULL;
             }
 
          /*   if($exam->term < 3){

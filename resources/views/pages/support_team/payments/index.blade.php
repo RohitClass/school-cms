@@ -70,6 +70,7 @@
                                 <th>Ref_No</th>
                                 <th>Class</th>
                                 <th>Method</th>
+                                <th>Pay_Type</th>
                                 <th>Info</th>
                                 <th>Action</th>
                             </tr>
@@ -81,8 +82,9 @@
                                     <td>{{ $p->title }}</td>
                                     <td>{{ $p->amount }}</td>
                                     <td>{{ $p->ref_no }}</td>
-                                    <td>{{ $p->my_class_id ? $p->my_class->name : '' }}</td>
+                                    <td>{{ $p->my_class_id ? $p->my_class->name : 'All Classes' }}</td>
                                     <td>{{ ucwords($p->method) }}</td>
+                                    <td>{{ ucwords($p->payment_type) }}</td>
                                     <td>{{ $p->description }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">
@@ -119,6 +121,7 @@
                                 <th>Ref_No</th>
                                 <th>Class</th>
                                 <th>Method</th>
+                                <th>Pay_Type</th>
                                 <th>Info</th>
                                 <th>Action</th>
                             </tr>
@@ -132,6 +135,7 @@
                                     <td>{{ $p->ref_no }}</td>
                                     <td>{{ $p->my_class_id ? $p->my_class->name : '' }}</td>
                                     <td>{{ ucwords($p->method) }}</td>
+                                    <td>{{ ucwords($p->payment_type) }}</td>
                                     <td>{{ $p->description }}</td>
                                     <td class="text-center">
                                         <div class="list-icons">

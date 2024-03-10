@@ -1,6 +1,6 @@
 <div>
     {{--KEYS TO RATING--}}
-    <div style="float: left">
+    {{-- <div style="float: left">
         <br>
         <strong style="text-decoration: underline;">KEY</strong> <br>
         <span>5 - Excellent</span> <br>
@@ -8,7 +8,7 @@
         <span>3 - Good</span> <br>
         <span>2 - Fair</span> <br>
         <span>1 - Poor</span> <br>
-    </div>
+    </div> --}}
 
     <table align="left" style="width:40%; border-collapse:collapse; border: 1px solid #000; margin:10px 20px;" border="1">
         <thead>

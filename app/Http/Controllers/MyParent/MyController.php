@@ -115,4 +115,10 @@ class MyController extends Controller
         $book->delete();
         return redirect()->route('books')->with('success', 'Book deleted successfully');
     }
+
+
+    public function notice (){
+        return 'llllll';
+    }
+
 }

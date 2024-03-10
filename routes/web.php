@@ -38,6 +38,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('promotion/{fc?}/{fs?}/{tc?}/{ts?}', 'PromotionController@promotion')->name('students.promotion');
             Route::post('promote/{fc}/{fs}/{tc}/{ts}', 'PromotionController@promote')->name('students.promote');
 
+            Route::get('/notice', 'NoticeController@notice')->name('notice');
+            Route::post('/notice-store', 'NoticeController@store')->name('notice.store');
+            Route::get('notice-delete/{idd}', 'NoticeController@delete')->name('notice.delete');
+
+
         });
 
         /*************** Users *****************/
@@ -131,6 +136,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('attend/{idd}','TimeTableController@attend')->name('pages.support_team.students.list');
                 Route::get('attend2/{iddd}','TimeTableController@attend2')->name('pages.support_team.students.list2');
 
+
             });
 
             Route::get('select_year/{id}', 'MarkController@year_selector')->name('marks.year_selector');
@@ -141,6 +147,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('attendence', 'StudentRecordController@attendence')->name('attendence.show');
             Route::get('fee', 'StudentRecordController@fee')->name('fee.show');
             Route::get('book', 'StudentRecordController@book')->name('book.show');
+            Route::get('std-notice', 'StudentRecordController@notice')->name('std.notice');
         });
 
         Route::resource('students', 'StudentRecordController');

@@ -11,9 +11,11 @@ use App\Repositories\MyClassRepo;
 use App\Repositories\StudentRepo;
 use App\Repositories\UserRepo;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Custom\Student;
 use App\Models\Attendance;
 use App\Models\Book;
 use App\Models\BookRequest;
+use App\Models\Notice;
 use App\Models\PaymentRecord;
 use App\Models\StudentRecord;
 use App\User;
@@ -57,6 +59,7 @@ class StudentRecordController extends Controller
 
     public function store(StudentRecordCreate $req)
     {
+       $req->only(Qs::getUserRecord());
        $data =  $req->only(Qs::getUserRecord());
        $sr =  $req->only(Qs::getStudentData());
 
@@ -80,14 +83,23 @@ class StudentRecordController extends Controller
             $data['photo'] = asset('storage/' . $f['path']);
         }
 
-        $user = $this->user->create($data); // Create User
-
         $sr['adm_no'] = $data['username'];
+        $sr['father_name'] = $req->father_name;
+        $sr['mother_name'] = $req->mother_name;
+        $sr['student_id'] = $req->student_id;
+        $sr['adhar_no'] = $req->adhar_no;
+        $sr['mother_no'] = $req->mother_no;
+        $sr['father_no'] = $req->father_no;
+        $user = $this->user->create($data); // Create User
         $sr['user_id'] = $user->id;
         $sr['session'] = Qs::getSetting('current_session');
 
-        $this->student->createRecord($sr); // Create Student
-        return Qs::jsonStoreOk();
+       $sub = $this->student->createRecord($sr); // Create Student
+       if(!$sub):
+            return  Qs::goWithDanger();
+       endif;
+         return Qs::jsonStoreOk();
+
     }
 
     public function listByClass($class_id)
@@ -175,12 +187,11 @@ class StudentRecordController extends Controller
         return Qs::jsonUpdateOk();
     }
 
-    public function destroy($st_id)
+    public function destroy($id)
     {
-        $st_id = Qs::decodeHash($st_id);
-        if(!$st_id){return Qs::goWithDanger();}
+        if(!$id){return Qs::goWithDanger();}
 
-        $sr = $this->student->getRecord(['user_id' => $st_id])->first();
+        $sr = $this->student->getRecord(['user_id' => $id])->first();
         $path = Qs::getUploadPath('student').$sr->user->code;
         Storage::exists($path) ? Storage::deleteDirectory($path) : false;
         $this->user->delete($sr->user->id);
@@ -202,6 +213,13 @@ class StudentRecordController extends Controller
     public function book(){
         $recs = BookRequest::where('user_id',Auth::User()->id)->with('book','student')->get();
         return view('pages.student.book', compact('recs'));
+    }
+
+    public function notice(){
+        $user = User::find(Auth::user()->id);
+        $StuId = StudentRecord::where('user_id',$user->id)->first();
+        $notice = Notice::where('my_class_id',$StuId->my_class_id)->with('class')->get();
+        return view('pages.student.notice', compact('notice'));
     }
 
 }

@@ -6,7 +6,7 @@ use Eloquent;
 
 class Payment extends Eloquent
 {
-    protected $fillable = ['title', 'amount', 'my_class_id', 'description', 'year', 'ref_no'];
+    protected $fillable = ['title', 'amount', 'my_class_id', 'description', 'year','payment_type', 'ref_no'];
 
     public function my_class()
     {
